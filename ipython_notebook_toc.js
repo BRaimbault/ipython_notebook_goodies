@@ -8,30 +8,33 @@ function createTOC(){
     $(":header").each(function(i){
 	    if (this.id=='tocheading'){return;}
         
-	    titleText = this.innerHTML;
-	    openLevel = this.tagName[1];
+	    if (this.id=='tocinclude'){
+		    
+		    titleText = this.innerHTML;
+		    openLevel = this.tagName[1];
 
-	    if (levels[openLevel]){
-		levels[openLevel] += 1;
-	    } else{
-		levels[openLevel] = 1;
+		    if (levels[openLevel]){
+			levels[openLevel] += 1;
+		    } else{
+			levels[openLevel] = 1;
+		    }
+
+		    if (openLevel > level) {
+			toc += (new Array(openLevel - level + 1)).join('<ul class="toc">');
+		    } else if (openLevel < level) {
+			toc += (new Array(level - openLevel + 1)).join("</ul>");
+			for (i=level;i>openLevel;i--){levels[i]=0;}
+		    }
+
+		    level = parseInt(openLevel);
+
+
+		    if (this.id==''){this.id = this.innerHTML.replace(/ /g,"-")}
+		    var anchor = this.id;
+
+		    toc += '<li><a href="#' + anchor + '">' + titleText
+			+ '</a></li>';
 	    }
-
-	    if (openLevel > level) {
-		toc += (new Array(openLevel - level + 1)).join('<ul class="toc">');
-	    } else if (openLevel < level) {
-		toc += (new Array(level - openLevel + 1)).join("</ul>");
-		for (i=level;i>openLevel;i--){levels[i]=0;}
-	    }
-
-	    level = parseInt(openLevel);
-
-
-	    if (this.id==''){this.id = this.innerHTML.replace(/ /g,"-")}
-	    var anchor = this.id;
-        
-	    toc += '<li><a href="#' + anchor + '">' +  levels[openLevel].toString() + '. ' + titleText
-		+ '</a></li>';
         
 	});
 
