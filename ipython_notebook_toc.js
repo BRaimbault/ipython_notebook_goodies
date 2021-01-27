@@ -30,8 +30,7 @@ function createTOC(){
 	    if (this.id==''){this.id = this.innerHTML.replace(/ /g,"-")}
 	    var anchor = this.id;
 
-	    toc += '<li><a href="#' + anchor + '">' + titleText
-		+ '</a></li>';
+	    toc += '<li><a href="#' + anchor + '">' + titleText	+ '</a></li>';
         
 	});
 
@@ -49,4 +48,4 @@ function createTOC(){
 setTimeout(function(){createTOC();},100);
 
 // Rebuild to TOC every minute
-setInterval(function(){createTOC();},60000);
+setInterval(function(){createTOC();},5000);
