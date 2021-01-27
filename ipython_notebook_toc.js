@@ -1,5 +1,6 @@
 // Builds a <ul> Table of Contents from all <headers> in DOM
 function createTOC(){
+	console.log('TOC reloading...');
     var toc = "";
     var level = 0;
     var levels = {}
